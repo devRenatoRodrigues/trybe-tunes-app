@@ -9,10 +9,12 @@ class Header extends Component {
     isLoading: true,
   };
 
+  // faz com que a função seja chamada assim que carrega a pagina !!
   componentDidMount() {
     this.getUserName();
   }
 
+  // faz a requisição para a API e exibir o carregando enquanto a requisição não é cumprida
   getUserName = async () => {
     const user = await getUser();
     this.setState({
