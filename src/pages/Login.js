@@ -9,9 +9,9 @@ class Login extends Component {
     isLoading: false,
     userName: '',
   };
-  
+
   handleClick = async () => {
-    const {history} = this.props
+    const { history } = this.props;
     this.setState({ isLoading: true });
     const { userName } = this.state;
     await createUser({ name: userName });
@@ -38,13 +38,16 @@ class Login extends Component {
     return (
       <div data-testid="page-login">
         <form>
-          <input
-            placeholder="Insert your name"
-            data-testid="login-name-input"
-            type="text"
-            name="userName"
-            onChange={ this.handleChange }
-          />
+          <label htmlFor="userName">
+            Your Name:
+            <input
+              placeholder="Insert your name"
+              data-testid="login-name-input"
+              type="text"
+              name="userName"
+              onChange={ this.handleChange }
+            />
+          </label>
           <button
             data-testid="login-submit-button"
             disabled={ disabled }
