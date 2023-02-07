@@ -19,7 +19,7 @@ class Albuns extends Component {
           data-testid={ `link-to-album-${albumID}` }
           to={ `/album/${albumID}` }
         >
-          Mais
+          More
         </Link>
       </div>
     );

@@ -74,7 +74,7 @@ class Search extends Component {
           </div>
           {albuns.length === 0
             ? (<h1>Nenhum álbum foi encontrado</h1>) : (albuns.map((album) => (
-              <div key={ album }>
+              <div key={ album.collectionName }>
                 <div>
                   <Albuns
                     albumImage={ album.artworkUrl100 }
