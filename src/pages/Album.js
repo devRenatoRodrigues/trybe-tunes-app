@@ -12,22 +12,24 @@ class Album extends Component {
     isLoading: true,
   };
 
+  // carregar a função assim que inicia a pagina
   componentDidMount() {
-    this.showMusics();
+    this.fetchMusics();
   }
 
-  showMusics = async () => {
+  // o match e params captura passado na rota Search o id do endereço da pagina
+  // albuminfos pega somente o primeiro elemento do retorno da função async
+  fetchMusics = async () => {
     const { match: { params: { id } } } = this.props;
     const musicsAlbum = await getMusics(id);
-    // const response = musicsAlbum.shift();
-    console.log(musicsAlbum);
-    // console.log(response);
     this.setState({
       musics: musicsAlbum,
       albumInfos: musicsAlbum[0],
       isLoading: false,
     });
   };
+
+  // passar essa func para o music card
 
   render() {
     const { musics,
@@ -46,11 +48,13 @@ class Album extends Component {
                   <h2 data-testid="album-name">{ collectionName }</h2>
                   <h3 data-testid="artist-name">{ artistName }</h3>
                 </div>
-                {musics.slice(1).map(({ trackName, previewUrl }, index) => (
-                  <div key={ trackName }>
+                {musics.slice(1).map((music) => (
+                  <div key={ music.trackName }>
                     <MusicCard
-                      musicName={ trackName }
-                      musicPreview={ previewUrl }
+                      music={ music }
+                      musicName={ music.trackName }
+                      musicPreview={ music.previewUrl }
+                      trackId={ music.trackId }
                     />
                   </div>
                 ))}
@@ -60,6 +64,7 @@ class Album extends Component {
     );
   }
 }
+// o slice faz com que o map inicie a partir do index `1` do array
 
 Album.propTypes = {
   match: PropTypes.shape({
