@@ -29,8 +29,6 @@ class Album extends Component {
     });
   };
 
-  // passar essa func para o music card
-
   render() {
     const { musics,
       albumInfos: { artworkUrl100, collectionName, artistName },
