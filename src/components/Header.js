@@ -39,10 +39,9 @@ class Header extends Component {
         <div>
           <Link data-testid="link-to-profile" to="/profile">Profile</Link>
         </div>
-        <h1 data-testid="header-user-name">
-          Hello,
+        <p data-testid="header-user-name">
           {userName}
-        </h1>
+        </p>
       </div>
 
     );

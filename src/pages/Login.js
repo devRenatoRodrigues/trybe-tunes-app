@@ -37,7 +37,7 @@ class Login extends Component {
     if (isLoading) return <Loading />;
     return (
       <div data-testid="page-login">
-        <form>
+        <form onSubmit={ this.handleClick }>
           <label htmlFor="userName">
             Your Name:
             <input
@@ -49,11 +49,13 @@ class Login extends Component {
             />
           </label>
           <button
+            id="button"
+            name="button"
             data-testid="login-submit-button"
             disabled={ disabled }
-            onClick={ this.handleClick }
+            value="Entrar"
+            type="submit"
           >
-
             Entrar
           </button>
         </form>
