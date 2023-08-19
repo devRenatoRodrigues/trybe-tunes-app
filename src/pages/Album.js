@@ -29,6 +29,9 @@ class Album extends Component {
 
   ToggleHandleClick = async () => {
     this.setState({ isLoading: true });
+
+    const { musics } = this.state;
+    const musicArray = musics.map((music) => music);
     await getFavoriteSongs();
     this.setState({
       musics: musicArray,
@@ -44,30 +47,31 @@ class Album extends Component {
     } = this.state;
 
     return (
-      isLoading ? (
-        <Loading />
-      ) : (
-        <div data-testid="page-album">
-          <Header />
+      <div data-testid="page-album">
+        <Header />
+        {isLoading ? (
+          <Loading />
+        ) : (
           <div>
             <img src={ artworkUrl100 } alt="Album Cover" />
             <h2 data-testid="album-name">{collectionName}</h2>
             <h3 data-testid="artist-name">{artistName}</h3>
           </div>
-          {musics.slice(1).map((music) => (
-            <div key={ music.trackName }>
-              <MusicCard
-                music={ music }
-                musicName={ music.trackName }
-                musicPreview={ music.previewUrl }
-                trackId={ music.trackId }
-                onClick={ this.ToggleHandleClick }
-              />
-            </div>
-          ))}
+        )}
 
-        </div>
-      ));
+        {musics.slice(1).map((music) => (
+          <div key={ music.trackId }>
+            <MusicCard
+              music={ music }
+              musicName={ music.trackName }
+              musicPreview={ music.previewUrl }
+              trackId={ music.trackId }
+              onClick={ this.ToggleHandleClick }
+            />
+          </div>
+        ))}
+      </div>
+    );
   }
 }
 
