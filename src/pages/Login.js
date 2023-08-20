@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { createUser } from '../services/userAPI';
 import Loading from '../components/Loading';
+import '../styles/Login.css';
 
 class Login extends Component {
   state = {
@@ -36,11 +37,12 @@ class Login extends Component {
     const { disabled, isLoading } = this.state;
     if (isLoading) return <Loading />;
     return (
-      <div data-testid="page-login">
-        <form onSubmit={ this.handleClick }>
-          <label htmlFor="userName">
+      <main data-testid="page-login" id="login-container">
+        <form id="forms-content" onSubmit={ this.handleClick }>
+          <label id="label-name" htmlFor="userName">
             Your Name:
             <input
+              className="form-control"
               placeholder="Insert your name"
               data-testid="login-name-input"
               type="text"
@@ -49,7 +51,8 @@ class Login extends Component {
             />
           </label>
           <button
-            id="button"
+            id="login-button"
+            className="btn btn-primary"
             name="button"
             data-testid="login-submit-button"
             disabled={ disabled }
@@ -60,7 +63,7 @@ class Login extends Component {
           </button>
         </form>
 
-      </div>
+      </main>
     );
   }
 }

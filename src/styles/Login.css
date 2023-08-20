@@ -1,0 +1,29 @@
+@import "bootstrap";
+
+#login-container {
+    background-color: black;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+}
+
+#forms-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    width: 100%; 
+    height: 100%;
+}
+
+#label-name {
+    font-size: larger;
+    color: #32cd32;
+}
+
+#login-button {
+    background-color: #32cd32;
+    padding: 4px 80px;
+    margin: 8px; 
+}

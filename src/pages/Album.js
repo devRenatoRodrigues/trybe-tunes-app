@@ -53,23 +53,30 @@ class Album extends Component {
           <Loading />
         ) : (
           <div>
-            <img src={ artworkUrl100 } alt="Album Cover" />
-            <h2 data-testid="album-name">{collectionName}</h2>
-            <h3 data-testid="artist-name">{artistName}</h3>
+            <div className="album-card">
+              <img src={ artworkUrl100 } alt="Album Cover" />
+              <h5 data-testid="album-name">{collectionName}</h5>
+              <h6 data-testid="artist-name">{artistName}</h6>
+            </div>
+            <ul className="music-card-container">
+              { musics.slice(1).map((music) => (
+                <li
+                  className="music-card"
+                  key={ music.trackId }
+                >
+                  <MusicCard
+                    music={ music }
+                    musicName={ music.trackName }
+                    musicPreview={ music.previewUrl }
+                    trackId={ music.trackId }
+                    onClick={ this.ToggleHandleClick }
+                  />
+                </li>
+              ))}
+            </ul>
+
           </div>
         )}
-
-        {musics.slice(1).map((music) => (
-          <div key={ music.trackId }>
-            <MusicCard
-              music={ music }
-              musicName={ music.trackName }
-              musicPreview={ music.previewUrl }
-              trackId={ music.trackId }
-              onClick={ this.ToggleHandleClick }
-            />
-          </div>
-        ))}
       </div>
     );
   }

@@ -1,0 +1,44 @@
+@import "bootstrap";
+
+
+.search-container {
+    position: absolute;
+    top: 23%; /* Ajuste a porcentagem para posicionar o container */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card-album {
+width: 15rem;
+}
+
+
+#button-previous-next {
+margin-left: 600px;
+}
+
+#error-result {
+display: flex;
+flex-direction: column;
+align-items: center;
+margin-left: 500px;
+}
+
+body {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+#albuns-result {
+    position: absolute;
+    top: 40%;
+}
+
+.card-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }

@@ -3,6 +3,8 @@ import Albuns from '../components/Albuns';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
+import notFound from '../assets/albun-not-found.png';
+import '../styles/Search.css';
 
 class Search extends Component {
   state = {
@@ -11,6 +13,9 @@ class Search extends Component {
     isLoading: false,
     albuns: [],
     result: false,
+    currentPage: 1,
+    albumsPerPage: 4,
+    searchPerformed: false,
   };
 
   handleChange = (event) => {
@@ -33,21 +38,43 @@ class Search extends Component {
       isLoading: false,
       albuns: getAlbuns,
       result: true,
+      searchPerformed: true,
     });
   };
 
   render() {
-    const { result, disabled, isLoading, search, albuns } = this.state;
+    const { result,
+      disabled,
+      isLoading,
+      search,
+      albuns,
+      currentPage,
+      albumsPerPage,
+      searchPerformed } = this.state;
+
+    const indexOfLastAlbum = currentPage * albumsPerPage;
+    const indexOfFirstAlbum = indexOfLastAlbum - albumsPerPage;
+    const currentAlbums = albuns.slice(indexOfFirstAlbum, indexOfLastAlbum);
+
     return (
-      <div data-testid="page-search">
+      <>
         <Header />
-        <section>
+        <section
+          data-testid="page-search"
+          className="search-container"
+        >
           {isLoading ? (<Loading />) : (
-            <form>
-              <label htmlFor="searchArtist">
+            <form
+              className="input-group mb-3 d-grid gap-2 col-6 mx-auto"
+            >
+              <label
+                htmlFor="searchArtist"
+                className="input-group-text input-search"
+              >
                 Search for artist or band:
                 <input
                   data-testid="search-artist-input"
+                  className="form-control"
                   name="searchArtist"
                   type="text"
                   onChange={ this.handleChange }
@@ -55,6 +82,7 @@ class Search extends Component {
               </label>
               <button
                 data-testid="search-artist-button"
+                className="btn btn-primary"
                 disabled={ disabled }
                 onClick={ this.handleClick }
               >
@@ -63,31 +91,69 @@ class Search extends Component {
             </form>
           )}
         </section>
-        <section>
+        <section id="albuns-result">
           <div>
-            {result ? (
-              <h2>
+            {result && albuns.length !== 0 ? (
+              <h4>
                 Resultado de álbuns de:
-                {' '}
-                { search }
-              </h2>) : (<h2> </h2>)}
+                {search}
+              </h4>
+            ) : (
+              <h2> </h2>
+            )}
           </div>
-          {albuns.length === 0
-            ? (<h1>Nenhum álbum foi encontrado</h1>) : (albuns.map((album) => (
-              <div key={ album.collectionName }>
-                <div>
+          <ul className="list-group list-group-horizontal-md pagination card-container">
+            { searchPerformed && albuns.length === 0 ? (
+              <div id="error-result">
+                <img
+                  src={ notFound }
+                  alt="not found albun"
+                />
+                <h4>Nenhum álbum foi encontrado</h4>
+              </div>
+            ) : (
+              currentAlbums.map((album) => (
+                <li key={ album.collectionName } className="list-container ">
                   <Albuns
                     albumImage={ album.artworkUrl100 }
                     albumCollection={ album.collectionName }
                     albumArtist={ album.artistName }
                     albumID={ album.collectionId }
                   />
-                </div>
-              </div>)))}
-
+                </li>
+              ))
+            )}
+          </ul>
+          {searchPerformed && albuns.length !== 0 && (
+            <ul className="pagination" id="button-previous-next">
+              <li className={ `page-item ${currentPage === 1 ? 'disabled' : ''}` }>
+                <a
+                  href="#!"
+                  onClick={ () => this.setState({ currentPage: currentPage - 1 }) }
+                  className="page-link"
+                >
+                  Previous
+                </a>
+              </li>
+              <li
+                className={
+                  `page-item ${currentPage === Math.ceil(albuns.length / albumsPerPage)
+                    ? 'disabled'
+                    : ''}`
+                }
+              >
+                <a
+                  href="#!"
+                  onClick={ () => this.setState({ currentPage: currentPage + 1 }) }
+                  className="page-link"
+                >
+                  Next
+                </a>
+              </li>
+            </ul>
+          )}
         </section>
-
-      </div>
+      </>
     );
   }
 }
