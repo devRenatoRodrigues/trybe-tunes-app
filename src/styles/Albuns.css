@@ -1,33 +1,40 @@
-
+@import "bootstrap";
   
   .card-item-albun {
-    flex: 0 0 calc(25% - 10px); /* Definindo um tamanho fixo para os cards */
+    flex: 0 0 calc(25% - 10px);
     margin-right: 10px;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: none;
     box-sizing: border-box;
     max-height: 90%;
     max-width: 90%;
+    background-color: rgba(0, 0, 0, 0);
   }
   h6 {
     max-width: 86%;
   }
 
+  .white-color {
+    color: aliceblue;
+  }
+
 
   .album-card {
-    background-color: #ffffff;
+    
     border-radius: 10px;
-    padding: 20px;
+    padding: 28px;
     text-align: center;
     max-width: 300px;
   }
   
   .album-card img {
-    max-width: 100%;
-    height: auto;
     border-radius: 20px;
     margin-bottom: 20px;
     width: 250px;
+  }
+
+  #container {
+    display: flex;
   }
   
   .album-card h5 {
@@ -47,13 +54,33 @@
   }
   
   .music-card-container {
-    flex: 1;
+    flex-direction: column;
+    max-width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
-
-    padding: 10px;
+    margin-left: 15rem;
   }
+
+  .music-card-container li {
+    border: none;
+  }
+
+  #button-previous-next {
+ position: absolute;
+ top: 90%;
+ left: 4%;
+    }
   
   .music-card {
     border: 1px solid #ccc; 
     padding: 10px;
   }
+
+  #music-container{
+    display: flex;
+    flex-direction: row;
+  }
+
+  

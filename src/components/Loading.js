@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import '../styles/Loading.css';
 
 class Loading extends Component {
   render() {
     return (
-      <main>Carregando...</main>
+      <div className="loading-container">
+        <div className="loading-spinner" />
+      </div>
     );
   }
 }

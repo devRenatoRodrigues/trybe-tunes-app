@@ -19,8 +19,8 @@ class Albuns extends Component {
           alt=""
         />
         <div className="card-body">
-          <h6 className="card-title">{albumCollection}</h6>
-          <p className="card-text">{albumArtist}</p>
+          <h6 className="card-title white-color">{albumCollection}</h6>
+          <p className="card-text white-color">{albumArtist}</p>
           <Link
             class="btn btn-primary"
             data-testid={ `link-to-album-${albumID}` }

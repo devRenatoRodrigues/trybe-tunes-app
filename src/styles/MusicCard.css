@@ -1,0 +1,16 @@
+#Favorita {
+    display: none;
+}
+
+.favorite-label {
+    cursor: pointer; 
+  
+}
+
+  .favorite-icon {
+    transition: transform 0.2s; 
+  }
+  
+  .favorite-icon.checked {
+    transform: scale(1.1); 
+  }

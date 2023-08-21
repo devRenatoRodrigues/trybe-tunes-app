@@ -94,7 +94,7 @@ class Search extends Component {
         <section id="albuns-result">
           <div>
             {result && albuns.length !== 0 ? (
-              <h4>
+              <h4 className="white-color">
                 Resultado de álbuns de:
                 {search}
               </h4>
@@ -109,7 +109,7 @@ class Search extends Component {
                   src={ notFound }
                   alt="not found albun"
                 />
-                <h4>Nenhum álbum foi encontrado</h4>
+                <h4 className="white-color">Nenhum álbum foi encontrado</h4>
               </div>
             ) : (
               currentAlbums.map((album) => (

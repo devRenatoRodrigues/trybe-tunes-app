@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import { getUser, updateUser } from '../services/userAPI';
+import '../styles/Profile.css';
 
 class ProfileEdit extends Component {
   state = {
@@ -71,12 +72,15 @@ class ProfileEdit extends Component {
       isButtonDisabled,
     } = this.state;
     return (
-      <div data-testid="page-profile-edit">
+      <div
+        data-testid="page-profile-edit"
+        className="page-profile"
+      >
         <Header />
         {isLoading ? <Loading /> : (
           <>
             <p>Editar perfil</p>
-            <form>
+            <form className="profile-container">
               <label htmlFor="image">
                 Your url image:
                 <input
@@ -89,9 +93,13 @@ class ProfileEdit extends Component {
                   name="image"
                 />
               </label>
-              <label htmlFor="name">
+              <label
+                htmlFor="name"
+                className="form-label"
+              >
                 Your Name:
                 <input
+                  className="form-control"
                   type="text"
                   id="name"
                   placeholder={ name }
@@ -101,9 +109,13 @@ class ProfileEdit extends Component {
                   name="name"
                 />
               </label>
-              <label htmlFor="email">
+              <label
+                htmlFor="email"
+                className="form-label"
+              >
                 Your Email:
                 <input
+                  className="form-control"
                   type="text"
                   id="email"
                   placeholder={ email }
@@ -113,9 +125,13 @@ class ProfileEdit extends Component {
                   name="email"
                 />
               </label>
-              <label htmlFor="description">
+              <label
+                className="form-label"
+                htmlFor="description"
+              >
                 Your Description
                 <input
+                  className="form-control"
                   data-testid="edit-input-description"
                   type="text"
                   id="description"
@@ -127,6 +143,7 @@ class ProfileEdit extends Component {
               </label>
               <button
                 data-testid="edit-button-save"
+                className="btn btn-primary"
                 type="submit"
                 disabled={ isButtonDisabled }
                 onClick={ this.handleSubmit }

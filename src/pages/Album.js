@@ -11,6 +11,7 @@ class Album extends Component {
     musics: [],
     albumInfos: [],
     isLoading: true,
+    currentPage: 1,
   };
 
   componentDidMount() {
@@ -20,8 +21,9 @@ class Album extends Component {
   fetchMusics = async () => {
     const { match: { params: { id } } } = this.props;
     const musicsAlbum = await getMusics(id);
+    const restOfMusics = musicsAlbum.slice(1);
     this.setState({
-      musics: musicsAlbum,
+      musics: restOfMusics,
       albumInfos: musicsAlbum[0],
       isLoading: false,
     });
@@ -44,7 +46,14 @@ class Album extends Component {
       musics,
       albumInfos: { artworkUrl100, collectionName, artistName },
       isLoading,
+      currentPage,
     } = this.state;
+
+    console.log(musics);
+    const musicsPerPage = 4;
+    const startIndex = (currentPage - 1) * musicsPerPage;
+    const endIndex = startIndex + musicsPerPage;
+    const currentMusics = musics.slice(startIndex, endIndex);
 
     return (
       <div data-testid="page-album">
@@ -52,29 +61,71 @@ class Album extends Component {
         {isLoading ? (
           <Loading />
         ) : (
-          <div>
+          <div id="container">
             <div className="album-card">
               <img src={ artworkUrl100 } alt="Album Cover" />
-              <h5 data-testid="album-name">{collectionName}</h5>
-              <h6 data-testid="artist-name">{artistName}</h6>
-            </div>
-            <ul className="music-card-container">
-              { musics.slice(1).map((music) => (
-                <li
-                  className="music-card"
-                  key={ music.trackId }
-                >
-                  <MusicCard
-                    music={ music }
-                    musicName={ music.trackName }
-                    musicPreview={ music.previewUrl }
-                    trackId={ music.trackId }
-                    onClick={ this.ToggleHandleClick }
-                  />
-                </li>
-              ))}
-            </ul>
+              <h5
+                data-testid="album-name"
+                className="white-color"
+              >
+                {collectionName}
 
+              </h5>
+              <h6
+                data-testid="artist-name"
+                className="white-color"
+              >
+                {artistName}
+
+              </h6>
+            </div>
+            <div id="music-container">
+              <ul className="music-card-container">
+                { currentMusics.map((music) => (
+                  <li
+                    className="music-card"
+                    key={ music.trackId }
+                  >
+                    <MusicCard
+                      music={ music }
+                      musicName={ music.trackName }
+                      musicPreview={ music.previewUrl }
+                      trackId={ music.trackId }
+                      onClick={ this.ToggleHandleClick }
+                    />
+                  </li>
+                ))}
+              </ul>
+              <ul className="pagination" id="button-previous-next">
+                <li className={ `page-item ${currentPage === 1 ? 'disabled' : ''}` }>
+                  <a
+                    href="#!"
+                    onClick={
+                      () => this.setState({ currentPage: currentPage - 1 })
+                    }
+                    className="page-link"
+                  >
+                    Previous
+                  </a>
+                </li>
+                <li
+                  className={ `page-item ${
+                    currentPage === Math
+                      .ceil(musics.length / musicsPerPage) ? 'disabled' : ''
+                  }` }
+                >
+                  <a
+                    href="#!"
+                    onClick={
+                      () => this.setState({ currentPage: currentPage + 1 })
+                    }
+                    className="page-link"
+                  >
+                    Next
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         )}
       </div>
