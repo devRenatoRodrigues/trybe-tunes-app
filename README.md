@@ -3,4 +3,5 @@
 
 # Depployed At 
 
-[Link](trybe-tunes-app-dusky.vercel.app)
+[Link para a aplicação Trybe Tunes](https://trybe-tunes-app-dusky.vercel.app)
+
